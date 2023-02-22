@@ -21,6 +21,9 @@ const audio = $('#audio')
 const playBtn = $('.btn-toggle-play')
 const player = $('.player')
 const progress = $('#progress')
+const nextBtn = $('.btn-next')
+const prevBtn = $('.btn-prev')
+const randomBtn = $('.btn-random')
 
 
 const app = {
@@ -47,12 +50,6 @@ const app = {
             image: './assets/image/Bìa_album_Có_em_chờ.jpg'
         },
         {
-            name: "Chuyện đôi ta",
-            singer: "Da LAB",
-            path: "./assets/music/chill-hits/chuyen-doi-ta.mp3",
-            image: './assets/image/chuyen-doi-ta.jfif'
-        },
-        {
             name: "Nếu ngày ấy",
             singer: "Soobin Hoàng Sơn",
             path: "./assets/music/chill-hits/neu-ngay-ay.mp3",
@@ -65,10 +62,10 @@ const app = {
             image: './assets/image/chuyen-doi-ta.jfif'
         },
         {
-            name: "Chuyện đôi ta",
-            singer: "Da LAB",
-            path: "./assets/music/chill-hits/chuyen-doi-ta.mp3",
-            image: './assets/image/chuyen-doi-ta.jfif'
+            name: "There's no one at all",
+            singer: "Sơn Tùng MTP",
+            path: "./assets/music/chill-hits/there's-no-one-at-all.mp3",
+            image: './assets/image/there-no-one-at-all.jpg'
         },
         {
             name: "Chuyện đôi ta",
@@ -177,12 +174,48 @@ const app = {
             audio.currentTime = seekTime
         }
 
+        // Khi next song
+        nextBtn.onclick = function() {
+            _this.nextSong();
+            audio.play();
+        }
+
+        // Khi prev song
+        prevBtn.onclick = function() {
+            _this.prevSong();
+            audio.play();
+        }
+
+        // 
+        randomBtn.onclick = function() {
+            randomBtn.onclick = function() {
+                randomBtn.classList.add('active');
+            }
+        }
     },
 
     loadCurrentSong: function() {
         heading.textContent = this.currentSong.name
         cdThumb.style.backgroundImage = `url(${this.currentSong.image})`
         audio.src = this.currentSong.path
+    },
+
+    nextSong: function() {
+        this.currentIndex ++;
+        if(this.currentIndex >= this.songs.length) {
+            this.currentIndex = 0
+        }
+
+        this.loadCurrentSong()
+    },
+
+    prevSong: function() {
+        this.currentIndex --;
+        if(this.currentIndex < 0) {
+            this.currentIndex = this.songs.length - 1
+        }
+
+        this.loadCurrentSong()
     },
 
     start: function() {
